@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name             QSOFT Corp salary calculator
 // @namespace        https://github.com/serogaq/corp-salary-calculator
-// @version          0.2
+// @version          0.3
 // @description      Удобный помощник для расчета часов, ставки, переработок, ежемесячных выплат 10-го и 25-го числа каждого месяца
 // @author           serogaq
 // @match            *://www.corp.qsoft.ru/*
@@ -143,6 +143,11 @@
     const urlRegexp = /^http(s)?:\/\/(www\.corp|corp)\.qsoft\.ru\/bitrix\/admin\/myhours\.php/;
 
     if (urlRegexp.test(win.location.href)) {
+        const reloadPage = () => { win.location.href='/bitrix/admin/myhours.php'; }
+        if (_document.body.textContent === 'В работе портала обнаружены трудности. В ближайшее время работоспособность будет восстановлена. Обратитесь к менеджеру проектного офиса.') {
+            reloadPage();
+        }
+
         const months1 = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'];
         const months2 = ['январе', 'феврале', 'марте', 'апреле', 'мае', 'июне', 'июле', 'августе', 'сентябре', 'октябре', 'ноябре', 'декабре'];
         const months3 = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
@@ -155,7 +160,6 @@
         const selectedMonthName2 = months2[selectedMonth];
         const selectedMonthName3 = months3[selectedMonth];
         const currentDate = (new Date()).getDate();
-        const reloadPage = () => _document.getElementsByClassName('qsoft_tmpl_top_menu_tab_box')[3].children[0].click();
         const getOvertime = (part, month) => {
             let obj = JSON.parse(jsf.overtime);
             return obj[part][month];
@@ -192,6 +196,7 @@
                 let rate = data.rates.RUB;
                 jsf.usdToRubRate = parseFloat(rate);
                 jsf.currencybeacon_updatedAt = (new Date()).getTime();
+                reloadPage();
             }
         };
         if (jsf.currencybeacon_apikey !== '' && ((new Date()).getTime()-jsf.currencybeacon_updatedAt)/100 > 28800) { // 8ч
