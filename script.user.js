@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name             QSOFT Corp salary calculator
 // @namespace        https://github.com/serogaq/corp-salary-calculator
-// @version          0.1
+// @version          0.2
 // @description      Удобный помощник для расчета часов, ставки, переработок, ежемесячных выплат 10-го и 25-го числа каждого месяца
 // @author           serogaq
 // @match            *://www.corp.qsoft.ru/*
