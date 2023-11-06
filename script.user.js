@@ -140,7 +140,7 @@
 
     // =======================
 
-    const urlRegexp = /^https:\/\/www\.corp\.qsoft\.ru\/bitrix\/admin\/myhours\.php/;
+    const urlRegexp = /^http(s)?:\/\/(www\.corp|corp)\.qsoft\.ru\/bitrix\/admin\/myhours\.php/;
 
     if (urlRegexp.test(win.location.href)) {
         const months1 = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'];
