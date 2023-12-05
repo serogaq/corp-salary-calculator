@@ -425,12 +425,12 @@
         salaryCalcContainer.appendChild(payableOn25Container);
 
         const payableOn10Container = _createElement('div');
-        if (currentMonth > selectedMonth+1) {
-            payableOn10Container.textContent += `Выплачено 10-го ${months3[selectedMonth+1]}: ~${payableOn10+overtimeAmount} руб.`;
+        if (currentMonth > selectedMonth+1 || (currentMonth === 12 && selectedMonth === 11)) {
+            payableOn10Container.textContent += `Выплачено 10-го ${months3[(selectedMonth+1) % 12]}: ~${payableOn10+overtimeAmount} руб.`;
         } else if (currentMonth === selectedMonth+1 && currentDate >= 10) {
-            payableOn10Container.textContent += `Выплачено 10-го ${months3[selectedMonth+1]}: ~${payableOn10+overtimeAmount} руб.`;
+            payableOn10Container.textContent += `Выплачено 10-го ${months3[(selectedMonth+1) % 12]}: ~${payableOn10+overtimeAmount} руб.`;
         } else {
-            payableOn10Container.textContent += `К выплате 10-го ${months3[selectedMonth+1]}: ~${payableOn10+overtimeAmount} руб.`;
+            payableOn10Container.textContent += `К выплате 10-го ${months3[(selectedMonth+1) % 12]}: ~${payableOn10+overtimeAmount} руб.`;
         }
         salaryCalcContainer.appendChild(payableOn10Container);
 
